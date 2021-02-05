@@ -1,4 +1,3 @@
-# valheim_docker
 # Valheim Docker Container
 
 I’m currently working on my first Docker Image :) </br>
