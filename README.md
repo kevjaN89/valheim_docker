@@ -36,7 +36,7 @@ SERVER_WORLD="Dedicated" (default)
 ## Config
 The config files can be found under */home/steam/valheim*
 
-## Immportant befor restart the Container
+## Immportant before restart the Container
 If you want to restart the container, you should save the created world first. Unfortunately, </br>
 I have not yet found a way to pack this directly into the image. From here two possibilities. </br>
 If you don't do this, a new world will be generated after the container restart. </br>
