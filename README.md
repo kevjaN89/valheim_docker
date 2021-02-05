@@ -3,7 +3,7 @@
 I’m currently working on my first Docker Image :) </br>
 All Credits goes to CM2Walki for his steamcmd Container</br>
 and his Dockerfile from Modhau Project</br>
-https://github.com/CM2Walki
+> [CM2Walki](https://github.com/CM2Walki)
 
 # What is Valheim
 Valheim. A brutal exploration and survival game for 1-10 players, set in</br> a procedurally-generated purgatory 
