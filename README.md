@@ -9,13 +9,15 @@ https://github.com/CM2Walki
 Valheim. A brutal exploration and survival game for 1-10 players, set in</br> a procedurally-generated purgatory 
 inspired by viking culture. Battle, build, and conquer your </br>way to a saga worthy of Odin's patronage!
 
+> [Valheim](https://store.steampowered.com/app/892970/Valheim/)
+
 <img src="https://media.indiedb.com/images/games/1/67/66055/valheim_logo.png" alt="logo" width="300" /></img>
 
 # How to use this image
 
 Running on the *host* interface (recommended):<br/>
 ```console
-$ docker run -d --net=host -e SERVER_Name=yourservername -v /opt/valheim/valheim:/home/steam/valheim --name=valheim_dedicated valheim_dedicated:latest
+$ docker run -d --net=host -e SERVER_Name=yourservername -v /your/path/valheim:/home/steam/valheim --name=valheim_dedicated valheim_dedicated:latest
 ```
 
 # Configuration
