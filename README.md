@@ -19,8 +19,9 @@ Running using a bind mount for data persistence on container recreation:
 ```console
 $ mkdir -p $(pwd)/valheim
 $ chmod 777 $(pwd)/valheim # Makes sure the directory is writeable by the unprivileged container user
-$ docker run -d --net=host -e SERVER_Name=yourservername -v $(pwd)/valheim:/home/steam/valheim --name=valheim_dedicated valheim_dedicated:latest
+$ docker run -d --net=host -e SERVER_Name=yourservername -v $(pwd)/valheim:/home/steam/valheim --name=valheim_dedicated kevjan/kevjan-repo:latest
 ```
+Repo is still being adjusted
 
 # Configuration
 ## Environment Variables
