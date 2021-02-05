@@ -52,7 +52,9 @@ The second possibility would be via docker exec. The command looks like this for
 ```console
 docker exec -it containername echo 1 > server_exit.drp
 ```
-Now the container can be switched off or restarted!
+Now the container can be switched off or restarted!</br>
+</br>
+And finally, do not forget to open the firewall ports. 2456/udp, 2457/udp and 2568/udp
 
 
 
