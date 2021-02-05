@@ -44,7 +44,7 @@ If you don't do this, a new world will be generated after the container restart.
 </br>
 Create the following file for this here $(pwd)/valheim
 ```console
-$ cd (pwd)/valheim
+$ cd $(pwd)/valheim
 $ echo 1 > server_exit.drp
 ```
 As soon as the file "server_exit.drp" is created, the world is saved and will be restarted. Now you can turn off the Docker container</br>
