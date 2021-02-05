@@ -1,0 +1,64 @@
+###########################################################
+# Dockerfile that builds a Valheim Gameserver
+# all thanks to cm2network walentinlamonos@gmail.com. For the steamcmd image and the Mordhau dockerfile.
+###########################################################
+FROM cm2network/steamcmd:root
+
+LABEL maintainer="kevjan89@gmail.com"
+
+ENV STEAMAPPID 896660
+ENV STEAMAPPDIR /home/steam/valheim
+
+RUN set -x \
+# Install Vallheim server dependencies and clean up
+	&& apt-get update \
+	&& apt-get install -y --no-install-recommends --no-install-suggests \
+		libfontconfig1=2.13.1-2 \
+		libpangocairo-1.0-0=1.42.4-7~deb10u1 \
+		gconf-gsettings-backend=3.2.6-5 \
+		libxi6=2:1.7.9-1 \
+		libxcursor1=1:1.1.15-2 \
+		libxss1=1:1.2.3-1 \
+		libxcomposite1=1:0.4.4-2 \
+		libasound2=1.1.8-1 \
+		libxdamage1=1:1.1.4-3+b3 \
+		libxtst6=2:1.2.3-1 \
+		libatk1.0-0=2.30.0-2 \
+		libxrandr2=2:1.5.1-1 \
+	&& apt-get clean autoclean \
+	&& apt-get autoremove -y \
+	&& rm -rf /var/lib/apt/lists/* \
+# Run Steamcmd and install valheim
+# Write Server Config
+# Create restart Script to save the game state
+	&& su steam -c \
+		"${STEAMCMDDIR}/steamcmd.sh \
+		+login anonymous \
+		+force_install_dir ${STEAMAPPDIR} \
+		+app_update ${STEAMAPPID} validate \
+		+quit" 
+
+ENV SERVER_Name="replacethis" \
+	SERVER_PW="" \
+	SERVER_PUBLIC=1 \
+	SERVER_PORT=2456 \
+	SERVER_WORLD="Dedicated"
+			
+# Switch to user steam
+USER steam
+
+WORKDIR $STEAMAPPDIR
+
+VOLUME $STEAMAPPDIR
+
+# Set Entrypoint
+# 1. Update server
+# 2. Replace config parameters with ENV variables
+# 3. Start the server
+# You may not like it, but this is what peak Entrypoint looks like.
+ENTRYPOINT ${STEAMCMDDIR}/steamcmd.sh \
+			+login anonymous +force_install_dir ${STEAMAPPDIR} +app_update ${STEAMAPPID} +quit \
+		&& ${STEAMAPPDIR}/valheim_server.x86_64 -name $SERVER_Name -port $SERVER_PORT -world $SERVER_WORLD -password $SERVER_PW -public $SERVER_PUBLIC 
+
+# Expose ports
+EXPOSE 	2456/udp 2457/udp 2458/udp
