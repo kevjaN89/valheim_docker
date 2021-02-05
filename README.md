@@ -1,7 +1,7 @@
 # Valheim Docker Container
 
 I’m currently working on my first Docker Image :) </br>
-Alle Credits goes to CM2Walki for his steamcmd Container</br>
+All Credits goes to CM2Walki for his steamcmd Container</br>
 and his Dockerfile from Modhau Project</br>
 https://github.com/CM2Walki
 
