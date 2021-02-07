@@ -39,9 +39,12 @@ RUN set -x \
 		+app_update ${STEAMAPPID} validate \
 		+quit" 
 		
-# Copy Server Script to the Image
+# Create directory and Copy Server Script 
 RUN mkdir /home/steam/scripts
 COPY val_ser.sh /home/steam/scripts
+
+# Change the permission to steam user
+RUN chown -R steam:steam /home/steam/scripts/val_ser.sh
 
 ENV SERVER_Name="replacethis" \
 	SERVER_PW="" \
