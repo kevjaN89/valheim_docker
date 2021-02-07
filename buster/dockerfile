@@ -41,9 +41,11 @@ RUN set -x \
 		
 # Create directory and Copy Server Script 
 RUN mkdir /home/steam/scripts
+RUN chown -R steam:steam /home/steam/scripts
 COPY val_ser.sh /home/steam/scripts
 
 # Change the permission to steam user
+RUN chmod +x /home/steam/scripts/val_ser.sh
 RUN chown -R steam:steam /home/steam/scripts/val_ser.sh
 
 ENV SERVER_Name="replacethis" \
@@ -72,3 +74,6 @@ ENTRYPOINT ${STEAMCMDDIR}/steamcmd.sh \
 
 # Expose ports
 EXPOSE 	2456/udp 2457/udp 2458/udp
+
+# Add Stop Signal
+STOPSIGNAL SIGTERM
