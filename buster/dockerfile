@@ -74,6 +74,3 @@ ENTRYPOINT ${STEAMCMDDIR}/steamcmd.sh \
 
 # Expose ports
 EXPOSE 	2456/udp 2457/udp 2458/udp
-
-# Add Stop Signal
-STOPSIGNAL SIGTERM
