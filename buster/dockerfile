@@ -64,14 +64,12 @@ WORKDIR $STEAMAPPDIR
 VOLUME $STEAMAPPDIR
 VOLUME $VALHEIMSAVE
 
+# Expose ports
+EXPOSE 	2456/udp 2457/udp 2458/udp
 
 # Set Entrypoint
 # 1. Update server
 # 2. Start the server with your config
-ENTRYPOINT "${STEAMCMDDIR}/steamcmd.sh \
+ENTRYPOINT ${STEAMCMDDIR}/steamcmd.sh \
 			+login anonymous +force_install_dir ${STEAMAPPDIR} +app_update ${STEAMAPPID} +quit \
-		&& ${SRVSCRIPT}/val_ser.sh"	
-
-# Expose ports
-EXPOSE 	2456/udp 2457/udp 2458/udp
-
+		&& ${SRVSCRIPT}/val_ser.sh	
