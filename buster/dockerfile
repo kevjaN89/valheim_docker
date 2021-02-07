@@ -8,6 +8,8 @@ LABEL maintainer="kevjan89@gmail.com"
 
 ENV STEAMAPPID 896660
 ENV STEAMAPPDIR /home/steam/valheim
+ENV VALHEIMSAVE /home/steam/.config/unity3d/IronGate/Valheim
+ENV SRVSCRIPT /home/steam/scripts
 
 RUN set -x \
 # Install Vallheim server dependencies and clean up
@@ -30,13 +32,16 @@ RUN set -x \
 	&& rm -rf /var/lib/apt/lists/* \
 # Run Steamcmd and install valheim
 # Write Server Config
-# Create restart Script to save the game state
 	&& su steam -c \
 		"${STEAMCMDDIR}/steamcmd.sh \
 		+login anonymous \
 		+force_install_dir ${STEAMAPPDIR} \
 		+app_update ${STEAMAPPID} validate \
 		+quit" 
+		
+# Copy Server Script to the Image
+RUN mkdir /home/steam/scripts
+COPY val_ser.sh /home/steam/scripts
 
 ENV SERVER_Name="replacethis" \
 	SERVER_PW="" \
@@ -47,18 +52,20 @@ ENV SERVER_Name="replacethis" \
 # Switch to user steam
 USER steam
 
+#Workdir 
 WORKDIR $STEAMAPPDIR
 
+# Volumes
 VOLUME $STEAMAPPDIR
+VOLUME $VALHEIMSAVE
+
 
 # Set Entrypoint
 # 1. Update server
-# 2. Replace config parameters with ENV variables
-# 3. Start the server
-# You may not like it, but this is what peak Entrypoint looks like.
+# 2. Start the server with your config
 ENTRYPOINT ${STEAMCMDDIR}/steamcmd.sh \
 			+login anonymous +force_install_dir ${STEAMAPPDIR} +app_update ${STEAMAPPID} +quit \
-		&& ${STEAMAPPDIR}/valheim_server.x86_64 -name $SERVER_Name -port $SERVER_PORT -world $SERVER_WORLD -password $SERVER_PW -public $SERVER_PUBLIC 
+		&& ${SRVSCRIPT}/val_ser.sh	
 
 # Expose ports
 EXPOSE 	2456/udp 2457/udp 2458/udp
