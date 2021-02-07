@@ -20,7 +20,7 @@ Running using a bind mount for data persistence on container recreation:
 $ mkdir -p $(pwd)/valheim/data
 $ mkdir -p $(pwd)/valheim/save
 $ chmod 777 -R $(pwd)/valheim # Makes sure the directory is writeable by the unprivileged container user
-$ docker run -d --net=host -e SERVER_Name=yourservername -v $(pwd)/valheim:/home/steam/valheim -v $(pwd)/valheim/save:/home/steam/.config/unity3d/IronGate/Valheim --name=valheim_dedicated kevjan/kevjan-repo:latest
+$ docker run -d --net=host -e SERVER_Name=yourservername -v $(pwd)/valheim:/home/steam/valheim/data -v $(pwd)/valheim/save:/home/steam/.config/unity3d/IronGate/Valheim --name=valheim_dedicated kevjan/kevjan-repo:latest
 ```
 Repo is still being adjusted
 
