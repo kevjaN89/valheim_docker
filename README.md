@@ -17,9 +17,10 @@ inspired by viking culture. Battle, build, and conquer your </br>way to a saga w
 
 Running using a bind mount for data persistence on container recreation:
 ```console
-$ mkdir -p $(pwd)/valheim
-$ chmod 777 $(pwd)/valheim # Makes sure the directory is writeable by the unprivileged container user
-$ docker run -d --net=host -e SERVER_Name=yourservername -v $(pwd)/valheim:/home/steam/valheim --name=valheim_dedicated kevjan/kevjan-repo:latest
+$ mkdir -p $(pwd)/valheim/data
+$ mkdir -p $(pwd)/valheim/save
+$ chmod 777 -R $(pwd)/valheim # Makes sure the directory is writeable by the unprivileged container user
+$ docker run -d --net=host -e SERVER_Name=yourservername -v $(pwd)/valheim:/home/steam/valheim -v $(pwd)/valheim/save:/home/steam/.config/unity3d/IronGate/Valheim --name=valheim_dedicated kevjan/kevjan-repo:latest
 ```
 Repo is still being adjusted
 
@@ -42,7 +43,7 @@ If you want to restart the container, you should save the created world first. U
 I have not yet found a way to pack this directly into the image. From here two possibilities. </br>
 If you don't do this, a new world will be generated after the container restart. </br>
 </br>
-Create the following file for this here $(pwd)/valheim
+Create the following file for this here $(pwd)/valheim/data
 ```console
 $ cd $(pwd)/valheim
 $ echo 1 > server_exit.drp
